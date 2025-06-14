@@ -1,7 +1,7 @@
 streamlit==1.33.0
 plotly==5.22.0
 sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
 python-dotenv==1.0.1
-pandas==2.1.4
+pandas==3.0.0  # Актуальная версия на 2025 год
 numpy==1.26.4
-psycopg2==2.9.9
