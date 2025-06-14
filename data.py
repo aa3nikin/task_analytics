@@ -82,22 +82,15 @@ class SalaryService:
         return result
 
     def reload_data(self):
-        def _get_conn_str():
-            user = os.environ['DB_USER']
-            password = os.environ['DB_PASSWORD']
-            host = os.environ['DB_HOST']
-            name = os.environ['DB_NAME']
-            return f'postgresql://{user}:{password}@{host}/{name}?sslmode=require'
+        engine = create_engine('sqlite:///salary_data.db')
         
         try:
-            engine = create_engine(_get_conn_str())
             self._data = _get_salary_data(engine)
             self._infl = _get_inflation_data(engine)
             self._new_data = _get_new_data(engine)
             self._data_real = _get_real_data(self._data, self._infl)
         finally:
-            if engine:
-                engine.dispose()
+            engine.dispose()
 
     def set_filter(self, branches, year_from, year_to):
         self._branches_filtered = branches
