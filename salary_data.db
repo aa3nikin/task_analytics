@@ -1,0 +1,48 @@
+import pandas as pd
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Float
+
+# Создаем подключение к SQLite
+engine = create_engine('sqlite:///salary_data.db')
+metadata = MetaData()
+
+# Создаем таблицы
+branch = Table('branch', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String)
+)
+
+salary_data = Table('salary_data', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('branch_id', Integer),
+    Column('year', Integer),
+    Column('salary', Float)
+)
+
+inflation = Table('inflation', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('year', Integer),
+    Column('rate', Float)
+)
+
+new_data = Table('new_data', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('Отрасль', String),
+    Column('2023', Float)
+)
+
+metadata.create_all(engine)
+
+# Заполняем данными (пример)
+with engine.connect() as conn:
+    # Добавляем отрасли
+    conn.execute(branch.insert(), [
+        {'name': 'Образование'},
+        {'name': 'Рыболовство и рыбоводство'},
+        {'name': 'Строительство'},
+        {'name': 'Средняя'}
+    ])
+    
+    # Добавляем данные по зарплатам
+    # ...
+    
+print("База данных создана успешно!")
