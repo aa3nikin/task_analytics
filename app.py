@@ -174,7 +174,6 @@ else:
     ax.grid(True, axis='y')
     ax.set_xticks(np.arange(2001, 2024))
     ax.tick_params(axis='x', rotation=45)
-    ax.legend()
     st.pyplot(fig)
 
     st.markdown("""
